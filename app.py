@@ -33,6 +33,7 @@ for i in range(100):
         temp.append(text)
         text = preprocess(text)
         encoded_input = tokenizer(text, return_tensors='pt', truncation=True)
+        tokenizer.model_max_length = 512
         output = model(**encoded_input)
         scores = output[0][0].detach().numpy()
         scores = softmax(scores)
