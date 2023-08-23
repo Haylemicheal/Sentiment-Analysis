@@ -42,7 +42,7 @@ for i in range(100):
         ranking = ranking[::-1]
         for x in range(scores.shape[0] -1, -1, -1):
             s = scores[ranking[x]]
-            temp.append(s)
+            temp.append(str(s))
         output_list.append(temp)
         
     before = str(res.json()["data"][99]['created_utc'])
