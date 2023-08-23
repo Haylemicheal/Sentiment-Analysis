@@ -28,18 +28,18 @@ for i in range(100):
         print("I am in "+ str(i) +" of"+ str(j))
         temp = []
         text = res.json()["data"][j]['body']
-        if (len(text)/4 > 514):
-            text = text[0:514]
+        # if (len(text)/4 > 514):
+        #     text = text[0:514]
         temp.append(text)
         text = preprocess(text)
-        encoded_input = tokenizer(text, return_tensors='pt')
+        encoded_input = tokenizer(text, return_tensors='pt', truncation=True)
         output = model(**encoded_input)
         scores = output[0][0].detach().numpy()
         scores = softmax(scores)
 
         ranking = np.argsort(scores)
         ranking = ranking[::-1]
-        for x in range(scores.shape[0], -1, -1):
+        for x in range(scores.shape[0] -1, -1, -1):
             s = scores[ranking[x]]
             temp.append(s)
         output_list.append(temp)
