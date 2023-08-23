@@ -21,7 +21,7 @@ def preprocess(text):
         t = 'http' if t.startswith('http') else t
         new_text.append(t)
     return " ".join(new_text)
-output_list = [["Text","Negative","Neutral","Positive"]]
+output_list = [["Text","Positve","Neutral","Negative"]]
 for i in range(100):
     res = requests.get('https://api.pullpush.io/reddit/search/comment/?q=toyota&before='+str(before))
     for j in range(100):
@@ -39,7 +39,7 @@ for i in range(100):
 
         ranking = np.argsort(scores)
         ranking = ranking[::-1]
-        for x in range(scores.shape[0]):
+        for x in range(scores.shape[0], -1, -1):
             s = scores[ranking[x]]
             temp.append(s)
         output_list.append(temp)
